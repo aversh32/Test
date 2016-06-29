@@ -240,6 +240,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606281104172_InitialCreate.cs" />
+    <Compile Include="Migrations\201606281104172_InitialCreate.Designer.cs">
+      <DependentUpon>201606281104172_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606291014238_AddOrderStatus.cs" />
+    <Compile Include="Migrations\201606291014238_AddOrderStatus.Designer.cs">
+      <DependentUpon>201606291014238_AddOrderStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606291246053_AddCard.cs" />
+    <Compile Include="Migrations\201606291246053_AddCard.Designer.cs">
+      <DependentUpon>201606291246053_AddCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -313,8 +326,19 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\ActionName.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201606281104172_InitialCreate.resx">
+      <DependentUpon>201606281104172_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606291014238_AddOrderStatus.resx">
+      <DependentUpon>201606291014238_AddOrderStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606291246053_AddCard.resx">
+      <DependentUpon>201606291246053_AddCard.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

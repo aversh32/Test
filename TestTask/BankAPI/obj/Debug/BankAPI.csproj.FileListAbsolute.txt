@@ -108,6 +108,10 @@ c:\users\user\documents\visual studio 2015\Projects\TestTask\BankAPI\bin\ru\Micr
 c:\users\user\documents\visual studio 2015\Projects\TestTask\BankAPI\bin\ru\Microsoft.Owin.Security.Twitter.resources.dll
 c:\users\user\documents\visual studio 2015\Projects\TestTask\BankAPI\bin\ru\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 c:\users\user\documents\visual studio 2015\Projects\TestTask\BankAPI\bin\ru\System.Web.Http.Owin.resources.dll
-c:\users\user\documents\visual studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.csprojResolveAssemblyReference.cache
 c:\users\user\documents\visual studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.dll
 c:\users\user\documents\visual studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.pdb
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.InitialCreate.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.csproj.GenerateResource.Cache
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.AddOrderStatus.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.AddCard.resources

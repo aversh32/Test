@@ -1,0 +1,5 @@
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\Client\bin\Debug\Client.exe.config
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\Client\bin\Debug\Client.exe
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\Client\bin\Debug\Client.pdb
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\Client\obj\Debug\Client.exe
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\Client\obj\Debug\Client.pdb
