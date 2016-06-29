@@ -41,16 +41,18 @@ namespace BankAPI.Controllers
             return Ok(order);
         }
 
+        [System.Web.Http.HttpPost]
         public IHttpActionResult PostPay(int id)
         {
-           
+            var args = Request.RequestUri;
             var order = db.Orders.Find(id);
              bool isEnough = CheckLimit(order.amount_kop, cards[0].card_number);
-             if (!isEnough)
-             {
-                 return Ok("Недостаточно средств   " + GetLimit(cards[0].card_number));
-             }
-            else return Ok("Богато живёте");
+            /*if (!isEnough)
+            {
+                return Ok("Недостаточно средств   " + GetLimit(cards[0].card_number));
+            }
+           else return Ok("Богато живёте");*/
+            return Ok(args);
             
         }
 
