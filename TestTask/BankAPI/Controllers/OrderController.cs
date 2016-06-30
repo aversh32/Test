@@ -6,7 +6,9 @@ using System.Net.Http;
 using System.Web.Http;
 using BankAPI.Models;
 using System.Web.Mvc;
-
+using System.Collections.Specialized;
+using System.Net.Http.Formatting;
+using System.Data.Entity;
 
 namespace BankAPI.Controllers
 {
@@ -20,12 +22,10 @@ namespace BankAPI.Controllers
         };*/
         Card[] cards = new Card[]
         {
-            new Card { card_number = "2222", limit = 1000 },
-            new Card { card_number = "1234", limit = 0},
+            new Card { card_number = "2222", limit = 1000, expiry_month="12", expiry_year="1233", cvv="123", cardholder_name="wdfsfg" },
+            new Card { card_number = "1234", limit = -1, expiry_month="11", expiry_year="1111", cvv="567", cardholder_name="Andrey"},
         };
         OrderContext db = new OrderContext();
-        
-
         public IEnumerable<Order> GetAllOrders()
         {
             return db.Orders;
@@ -42,42 +42,81 @@ namespace BankAPI.Controllers
         }
 
         [System.Web.Http.HttpPost]
-        public IHttpActionResult PostPay(int id)
+        public IHttpActionResult PostPay(int id, [FromBody] FormDataCollection values )
         {
-            var args = Request.RequestUri;
-            var order = db.Orders.Find(id);
-             bool isEnough = CheckLimit(order.amount_kop, cards[0].card_number);
-            /*if (!isEnough)
+            var order = db.Orders.Find(id);           
+            string card_number = values["c_number"];
+            string expiry_month = values["exp_month"];
+            string expiry_year = values["exp_year"];
+            string cvv = values["cvv"];
+            string cardholder_name = values["cardholder"];
+            Card curCard = GetCard(card_number, expiry_month, expiry_year, cvv, cardholder_name);
+            if(curCard == null)
             {
-                return Ok("Недостаточно средств   " + GetLimit(cards[0].card_number));
+                return Content(HttpStatusCode.OK, "Card not Found");
             }
-           else return Ok("Богато живёте");*/
-            return Ok(args);
             
+            bool isEnough = CheckLimit(order.amount_kop, card_number);
+            if (!isEnough)
+            {
+                return Ok("Not Enough money   " + GetLimit(card_number));
+            }
+            //else return Ok("Rich bitch");
+            //return Ok(cvv);
+            try
+            {
+                PayBank(curCard, order);
+            }
+            catch
+            {
+                return Ok("Bank Error");
+            }
+            
+            order.card_number = card_number;
+            order.status = "Success";
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return Ok("success");
         }
 
         public IHttpActionResult GetStatus (int id)
         {
             var order = db.Orders.Find(id);
-           
-            return Ok(order.status);
+           if(order == null)
+            {
+                return NotFound();
+            }
+            else return Ok(order.status);
         }
 
         public IHttpActionResult GetRefund(int id)
         {
             var order = db.Orders.Find(id);
+            if(order == null)
+            {
+                return Ok("Order not Found");
+            }
+            try
+            {
+                Card card = GetCard(order.card_number);
+                card.limit += (double)order.amount_kop / 100;
+            }
+            catch
+            {
+                return Ok("Bank Error");
+            }
             return Ok();
         }
 
         public bool CheckLimit(int amount, string number)
         {
-            int limit = GetLimit(number);
+            double limit = GetLimit(number);
             if (limit == 0 || limit - (double)amount/100 > 0)
                 return true;
             else return false;
         }
 
-        public int GetLimit(string number)
+        public double GetLimit(string number)
         {
             foreach(Card card in cards)
             {
@@ -87,9 +126,35 @@ namespace BankAPI.Controllers
             return -1;
         }
 
-        public bool GetCard(string card_number, int expiry_month, int expiry_year, int cvv, string cardholder_name)
+        public Card GetCard(string card_number, string expiry_month, string expiry_year, string cvv, string cardholder_name)
         {
-            return true;
+            foreach (Card card in cards)
+            {
+                if (card.card_number == card_number && card.expiry_month==expiry_month && card.expiry_year==expiry_year && card.cvv == cvv && card.cardholder_name==cardholder_name)
+                    return card;
+            }
+            return null;
+        }
+
+        public Card GetCard(string card_number)
+        {
+            foreach (Card card in cards)
+            {
+                if (card.card_number == card_number )
+                    return card;
+            }
+            return null;
+        }
+
+        public IHttpActionResult GetCardLimit()
+        {
+            return Ok(GetLimit("2222"));
+        }
+
+        public void PayBank(Card card, Order order)
+        {
+            if (card.limit >= 0)
+                card.limit -= (double)order.amount_kop / 100;
         }
     }
 }

@@ -17,16 +17,18 @@ namespace BankAPI.Models
         public string cardholder_name { get; set; }*/
         public int amount_kop { get; set; }
         public string status { get; set; }
+        public string card_number { get; set; }
     }
 
     public class Card
     {
         [Key]
         public string card_number { get; set; }
-        public int limit { get; set; }     
+        public double limit { get; set; }     
         public string expiry_month { get; set; }
         public string expiry_year { get; set; }
         public string cvv { get; set; }
         public string cardholder_name { get; set; }
+
     }
 }

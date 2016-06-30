@@ -252,6 +252,10 @@
     <Compile Include="Migrations\201606291246053_AddCard.Designer.cs">
       <DependentUpon>201606291246053_AddCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606301348241_AddBlogUrl.cs" />
+    <Compile Include="Migrations\201606301348241_AddBlogUrl.Designer.cs">
+      <DependentUpon>201606301348241_AddBlogUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -300,6 +304,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\Andrey.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -337,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606291246053_AddCard.resx">
       <DependentUpon>201606291246053_AddCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606301348241_AddBlogUrl.resx">
+      <DependentUpon>201606301348241_AddBlogUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

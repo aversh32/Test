@@ -115,3 +115,4 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\B
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.AddOrderStatus.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.csprojResolveAssemblyReference.cache
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.AddCard.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.AddBlogUrl.resources
