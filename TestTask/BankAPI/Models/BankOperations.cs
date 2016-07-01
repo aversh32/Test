@@ -17,7 +17,6 @@ namespace BankAPI.Models
                 card.limit -= (double)order.amount_kop / 100;
                 db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
-                return;
             }
             order.card_number = card.card_number;
             order.status = "Success";
@@ -31,24 +30,24 @@ namespace BankAPI.Models
                 return card;
             return null;
         }
-        public bool GetCard(string card_number, string expiry_month, string expiry_year, string cvv, string cardholder_name)
+        public void GetCard(string card_number, string expiry_month, string expiry_year, string cvv, string cardholder_name)
         {
             var card = db.Cards.Find(card_number);
             if (card == null)
             {
-                return false;
+                throw new Exception("Card not Found");
             }
             else if (card.card_number == card_number && card.expiry_month == expiry_month && card.expiry_year == expiry_year && card.cvv == cvv && card.cardholder_name == cardholder_name)
-                return true;
-            return false;
+                return;
+            throw new Exception("Wrong Card Data");
         }
 
-        public bool CheckLimit(int amount, string number)
+        public void CheckLimit(int amount, string number)
         {
             double limit = GetLimit(number);
             if (limit < 0 || limit - (double)amount / 100 >= 0)
-                return true;
-            else return false;
+                return ;
+            else throw new Exception("Not Enough Money");
         }
 
         public double GetLimit(string number)
@@ -57,7 +56,34 @@ namespace BankAPI.Models
             if (card != null)
                 return card.limit;
 
-            return -1;
+             throw new Exception ("Card Not Found") ;
         }
+        public void OrderRefund(int id)
+        {
+            OrderOperations orderoper = new OrderOperations();
+            Order order;
+            try
+            {
+                order = orderoper.FindOrder(id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            Card card;
+            try
+            {
+                card = GetCard(order.card_number);
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            card.limit += (double)order.amount_kop / 100;
+            order.status = "Returned";
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
     }
 }

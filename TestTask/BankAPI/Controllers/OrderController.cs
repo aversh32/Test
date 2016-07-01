@@ -14,11 +14,11 @@ namespace BankAPI.Controllers
 {
     public class OrderController : ApiController
     {
-        OrderContext db = new OrderContext();
+      //  OrderContext db = new OrderContext();
         BankOperations bankoper = new BankOperations();
         OrderOperations orderoper = new OrderOperations();
         Validation valid = new Validation();
-        public IEnumerable<Order> GetAllOrders()
+    /*    public IEnumerable<Order> GetAllOrders()
         {
             return db.Orders;
         }
@@ -37,26 +37,48 @@ namespace BankAPI.Controllers
             }
             return Ok(order);
         }
-
+*/
         [System.Web.Http.HttpPost]
         public IHttpActionResult PostPay(int id, [FromBody] FormDataCollection values )
         {
-            var order = orderoper.FindOrder(id);           
+            Order order;
+            try
+            {
+                 order = orderoper.FindOrder(id);
+            }
+            catch(Exception e)
+            {
+                return Content(HttpStatusCode.NotFound, e.Message);
+            }
             string card_number = values["c_number"];
             string expiry_month = values["exp_month"];
             string expiry_year = values["exp_year"];
             string cvv = values["cvv"];
             string cardholder_name = values["cardholder"];
-            valid.TryValidate(card_number, expiry_month, expiry_year, cvv, cardholder_name);
-            bool isCard = bankoper.GetCard(card_number, expiry_month, expiry_year, cvv, cardholder_name);
-            if(!isCard)
+            try
             {
-                return Content(HttpStatusCode.OK, "Card not Found");
-            }         
-            bool isEnough = bankoper.CheckLimit(order.amount_kop, card_number);
-            if (!isEnough)
+                valid.TryValidate(card_number, expiry_month, expiry_year, cvv, cardholder_name);
+            }
+            catch(CardException e)
             {
-                return Ok("Not Enough money   " + bankoper.GetLimit(card_number));
+                return Content( HttpStatusCode.BadRequest, e.Message);
+            }
+            try
+            {
+                bankoper.GetCard(card_number, expiry_month, expiry_year, cvv, cardholder_name);
+            }
+            catch
+            {
+                //return Content(HttpStatusCode.NotFound, "Card not Found");
+                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Card not Found"));
+            }
+            try
+            {
+                bankoper.CheckLimit(order.amount_kop, card_number);
+            }
+           catch(Exception e)
+            {
+                return Content(HttpStatusCode.Forbidden, e.Message);
             }
             try
             {
@@ -64,36 +86,30 @@ namespace BankAPI.Controllers
             }
             catch
             {
-                return Ok("Bank Error");
+                return Content(HttpStatusCode.InternalServerError, "Bank Error");
             }
-
             return Ok("success");
         }
 
         public IHttpActionResult GetStatus (int id)
         {
-            var order = orderoper.FindOrder(id);
-           if(order == null)
+            Order order;
+            try
             {
-                return NotFound();
+                order = orderoper.FindOrder(id);
             }
-            else return Ok(order.status);
+            catch(Exception e)
+            {
+                return Content(HttpStatusCode.NotFound, e.Message);
+            }
+            return Ok(order.status);
         }
 
         public IHttpActionResult GetRefund(int id)
         {
-            var order = orderoper.FindOrder(id);
-            if(order == null)
-            {
-                return Ok("Order not Found");
-            }
             try
             {
-                Card card = bankoper.GetCard(order.card_number);
-                card.limit += (double)order.amount_kop / 100;
-                order.status = "Returned";
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
+
             }
             catch
             {
@@ -101,20 +117,5 @@ namespace BankAPI.Controllers
             }
             return Ok("Success");
         }
-              
-        public IHttpActionResult GetCardLimit()
-        {
-            return Ok(bankoper.GetLimit("2222"));
-        }
-
-        /*public void PayBank(string number, Order order)
-        {
-            var card = db.Cards.Find(number);
-            if (card.limit >= 0)
-                {
-                    card.limit -= (double)order.amount_kop / 100;
-                    return;
-                }          
-        }*/
     }
 }
