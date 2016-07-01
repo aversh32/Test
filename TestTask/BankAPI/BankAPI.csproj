@@ -256,12 +256,39 @@
     <Compile Include="Migrations\201606301348241_AddBlogUrl.Designer.cs">
       <DependentUpon>201606301348241_AddBlogUrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607010931475_AddTableCards.cs" />
+    <Compile Include="Migrations\201607010931475_AddTableCards.Designer.cs">
+      <DependentUpon>201607010931475_AddTableCards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607010944520_hz.cs" />
+    <Compile Include="Migrations\201607010944520_hz.Designer.cs">
+      <DependentUpon>201607010944520_hz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607010956114_hz2.cs" />
+    <Compile Include="Migrations\201607010956114_hz2.Designer.cs">
+      <DependentUpon>201607010956114_hz2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607011003473_hz1.cs" />
+    <Compile Include="Migrations\201607011003473_hz1.Designer.cs">
+      <DependentUpon>201607011003473_hz1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607011124036_req.cs" />
+    <Compile Include="Migrations\201607011124036_req.Designer.cs">
+      <DependentUpon>201607011124036_req.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607011146480_1111.cs" />
+    <Compile Include="Migrations\201607011146480_1111.Designer.cs">
+      <DependentUpon>201607011146480_1111.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\BankOperations.cs" />
     <Compile Include="Models\OrderContext.cs" />
+    <Compile Include="Models\OrderOperations.cs" />
+    <Compile Include="Models\Validation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -346,6 +373,24 @@
     <EmbeddedResource Include="Migrations\201606301348241_AddBlogUrl.resx">
       <DependentUpon>201606301348241_AddBlogUrl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607010931475_AddTableCards.resx">
+      <DependentUpon>201607010931475_AddTableCards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607010944520_hz.resx">
+      <DependentUpon>201607010944520_hz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607010956114_hz2.resx">
+      <DependentUpon>201607010956114_hz2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607011003473_hz1.resx">
+      <DependentUpon>201607011003473_hz1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607011124036_req.resx">
+      <DependentUpon>201607011124036_req.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607011146480_1111.resx">
+      <DependentUpon>201607011146480_1111.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -354,6 +399,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Pay\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

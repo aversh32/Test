@@ -116,3 +116,9 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\B
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.csprojResolveAssemblyReference.cache
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.AddCard.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.AddBlogUrl.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.AddTableCards.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.hz.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.hz2.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.hz1.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.req.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations._1111.resources

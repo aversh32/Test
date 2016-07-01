@@ -9,7 +9,7 @@ namespace BankAPI.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "BankAPI.Models.OrderContext";
         }
 
