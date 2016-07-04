@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BankAPI.Models
 {
-    public class BankOperations
+     class BankOperations
     {
         OrderContext db = new OrderContext();
         public  void PayBank(string number, Order order)
@@ -15,20 +15,31 @@ namespace BankAPI.Models
             if (card.limit >= 0)
             {
                 card.limit -= (double)order.amount_kop / 100;
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
+                order.card_number = card.card_number;
+                order.status = "Success";
+                try
+                {
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    throw new Exception("Bank Error");
+                }
             }
-            order.card_number = card.card_number;
-            order.status = "Success";
-            db.Entry(order).State = EntityState.Modified;
-            db.SaveChanges();
         }
-        public Card GetCard(string card_number)
+        private Card GetCard(string card_number)
         {
-            var card = db.Cards.Find(card_number);
-            if (card != null)
+            try
+            {
+                var card = db.Cards.Find(card_number);
                 return card;
-            return null;
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }    
+         
         }
         public void GetCard(string card_number, string expiry_month, string expiry_year, string cvv, string cardholder_name)
         {
@@ -55,7 +66,6 @@ namespace BankAPI.Models
             var card = db.Cards.Find(number);
             if (card != null)
                 return card.limit;
-
              throw new Exception ("Card Not Found") ;
         }
         public void OrderRefund(int id)
@@ -79,10 +89,17 @@ namespace BankAPI.Models
             {
                 throw new Exception(e.Message);
             }
-            card.limit += (double)order.amount_kop / 100;
-            order.status = "Returned";
-            db.Entry(order).State = EntityState.Modified;
-            db.SaveChanges();
+            try
+            {
+                card.limit += (double)order.amount_kop / 100;
+                order.status = "Returned";
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Bank Error"); 
+            }
         }
 
     }

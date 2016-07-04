@@ -10,11 +10,16 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using BankAPI.Providers;
 using BankAPI.Models;
+using Microsoft.Owin.Logging;
+
 
 namespace BankAPI
 {
     public partial class Startup
     {
+        
+
+
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }

@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Server.WebListener</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary">
+            <summary>
+            Represents a wrapper for RequestHeaders and ResponseHeaders.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.Item(System.String)">
+            <summary>
+            Get or sets the associated value from the collection as a single string.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns>the associated value from the collection as a StringValues or StringValues.Empty if the key is not present.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.System#Collections#Generic#IDictionary{System#String,Microsoft#Extensions#Primitives#StringValues}#Item(System.String)">
+            <summary>
+            Throws KeyNotFoundException if the key is not present.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:HeaderDictionary" />;.
+            </summary>
+            <returns>The number of elements contained in the <see cref="T:HeaderDictionary" />.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.IsReadOnly">
+            <summary>
+            Gets a value that indicates whether the <see cref="T:HeaderDictionary" /> is in read-only mode.
+            </summary>
+            <returns>true if the <see cref="T:HeaderDictionary" /> is in read-only mode; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.Add(System.Collections.Generic.KeyValuePair{System.String,Microsoft.Extensions.Primitives.StringValues})">
+            <summary>
+            Adds a new list of items to the collection.
+            </summary>
+            <param name="item">The item to add.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.Add(System.String,Microsoft.Extensions.Primitives.StringValues)">
+            <summary>
+            Adds the given header and values to the collection.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="value">The header values.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.Clear">
+            <summary>
+            Clears the entire list of objects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.Contains(System.Collections.Generic.KeyValuePair{System.String,Microsoft.Extensions.Primitives.StringValues})">
+            <summary>
+            Returns a value indicating whether the specified object occurs within this collection.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>true if the specified object occurs within this collection; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.ContainsKey(System.String)">
+            <summary>
+            Determines whether the <see cref="T:HeaderDictionary" /> contains a specific key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>true if the <see cref="T:HeaderDictionary" /> contains a specific key; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.CopyTo(System.Collections.Generic.KeyValuePair{System.String,Microsoft.Extensions.Primitives.StringValues}[],System.Int32)">
+            <summary>
+            Copies the <see cref="T:HeaderDictionary" /> elements to a one-dimensional Array instance at the specified index.
+            </summary>
+            <param name="array">The one-dimensional Array that is the destination of the specified objects copied from
+            the <see cref="T:HeaderDictionary" />.</param>
+            <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.Remove(System.Collections.Generic.KeyValuePair{System.String,Microsoft.Extensions.Primitives.StringValues})">
+            <summary>
+            Removes the given item from the the collection.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>true if the specified object was removed from the collection; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.Remove(System.String)">
+            <summary>
+            Removes the given header from the collection.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns>true if the specified object was removed from the collection; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.TryGetValue(System.String,Microsoft.Extensions.Primitives.StringValues@)">
+            <summary>
+            Retrieves a value from the dictionary.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="value">The value.</param>
+            <returns>true if the <see cref="T:HeaderDictionary" /> contains the key; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:IEnumerator" /> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.WebListener.HeaderDictionary.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{System#String,Microsoft#Extensions#Primitives#StringValues}}#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:IEnumerator" /> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.WebHostBuilderWebListenerExtensions.UseWebListener(Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
+            <summary>
+            Specify WebListener as the server to be used by the web host.
+            </summary>
+            <param name="hostBuilder">
+            The Microsoft.AspNetCore.Hosting.IWebHostBuilder to configure.
+            </param>
+            <returns>
+            The Microsoft.AspNetCore.Hosting.IWebHostBuilder.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.WebHostBuilderWebListenerExtensions.UseWebListener(Microsoft.AspNetCore.Hosting.IWebHostBuilder,System.Action{Microsoft.AspNetCore.Server.WebListener.WebListenerOptions})">
+            <summary>
+            Specify WebListener as the server to be used by the web host.
+            </summary>
+            <param name="hostBuilder">
+            The Microsoft.AspNetCore.Hosting.IWebHostBuilder to configure.
+            </param>
+            <param name="options">
+            A callback to configure WebListener options.
+            </param>
+            <returns>
+            The Microsoft.AspNetCore.Hosting.IWebHostBuilder.
+            </returns>
+        </member>
+    </members>
+</doc>

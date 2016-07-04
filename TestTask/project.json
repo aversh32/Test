@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0-*",
+ 
+  "dependencies": { },
+ 
+  "commands": {  "weblistener": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5006"},
+ 
+  "frameworks": { },
+ 
+  "exclude": [ ],
+  "publishExclude": [ ],
+  "scripts": { }
+}

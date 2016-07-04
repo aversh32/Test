@@ -13,7 +13,6 @@ namespace BankAPI.Controllers
     public class ValuesController : ApiController
     {
         OrderContext db = new OrderContext();
-        //CardContext carddb = new CardContext();
 
         // GET api/values
         public IEnumerable<Card> GetOrders()
