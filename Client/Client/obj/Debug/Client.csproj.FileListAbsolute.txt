@@ -4,3 +4,8 @@ c:\users\user\documents\visual studio 2015\Projects\Client\Client\bin\Debug\Clie
 c:\users\user\documents\visual studio 2015\Projects\Client\Client\obj\Debug\Client.exe
 c:\users\user\documents\visual studio 2015\Projects\Client\Client\obj\Debug\Client.pdb
 c:\users\user\documents\visual studio 2015\Projects\Client\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\Visual Studio 2015\Projects\Client\Client\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\Client\Client\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\Client\Client\bin\Debug\System.Net.Http.Extensions.xml
+C:\Users\user\Documents\Visual Studio 2015\Projects\Client\Client\bin\Debug\System.Net.Http.Primitives.xml
+C:\Users\user\Documents\Visual Studio 2015\Projects\Client\Client\obj\Debug\Client.csproj.App.config

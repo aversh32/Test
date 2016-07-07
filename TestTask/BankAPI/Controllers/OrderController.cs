@@ -40,11 +40,36 @@ namespace BankAPI.Controllers
            }
    */
          [System.Web.Http.HttpPost]
-        public IHttpActionResult PostPay(int id, [FromBody] FormDataCollection values )
+        public IHttpActionResult PostPay(int id, [FromBody] Card card )
         {
             APILog.LogWrite(Request.RequestUri.ToString());
-            Order order;
+          /*  if(!ModelState.IsValid)
+            {
+                return Ok("Model Error");
+            }*/
+
+
             try
+            {
+                bankoper.Payment(id, card);
+            }
+            catch(CardValidationException e)
+            {
+                APILog.LogWrite(e.Message);
+                return Content(HttpStatusCode.BadRequest, e.Message);
+            }
+            catch(BankErrorException e)
+            {
+                APILog.LogWrite(e.Message);
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+            catch(Exception e)
+            {
+                APILog.LogWrite(e.Message);
+                return Content(HttpStatusCode.NotFound, e.Message);
+            }
+ /*        Order order;
+           try
             {
                  order = orderoper.FindOrder(id);
             }
@@ -53,14 +78,9 @@ namespace BankAPI.Controllers
                 APILog.LogWrite(e.Message);
                 return Content(HttpStatusCode.NotFound, e.Message);
             }
-            string card_number = values["c_number"];
-            string expiry_month = values["exp_month"];
-            string expiry_year = values["exp_year"];
-            string cvv = values["cvv"];
-            string cardholder_name = values["cardholder"];
             try
             {
-                Validaion.TryValidate(card_number, expiry_month, expiry_year, cvv, cardholder_name);
+                Validaion.TryValidate(card.card_number, card.expiry_month, card.expiry_year, card.cvv, card.cardholder_name);
             }
             catch(CardException e)
             {
@@ -69,7 +89,7 @@ namespace BankAPI.Controllers
             }
             try
             {
-                bankoper.GetCard(card_number, expiry_month, expiry_year, cvv, cardholder_name);
+                bankoper.CheckCardExist(card.card_number, card.expiry_month, card.expiry_year, card.cvv, card.cardholder_name);
             }
             catch(Exception e)
             {
@@ -79,7 +99,7 @@ namespace BankAPI.Controllers
             }
             try
             {
-                bankoper.CheckLimit(order.amount_kop, card_number);
+                bankoper.CheckCardLimit(order.amount_kop, card.card_number);
             }
            catch(Exception e)
             {
@@ -88,20 +108,20 @@ namespace BankAPI.Controllers
             }
             try
             {
-                bankoper.PayBank(card_number, order);
+                bankoper.PayBank(card.card_number, order);
             }
             catch(Exception e)
             {
                 APILog.LogWrite(e.Message);
                 return Content(HttpStatusCode.InternalServerError, e.Message);
             }
-            APILog.LogWrite("Success");
-            return Ok("success");
+            APILog.LogWrite("Success");*/
+            return Ok("success Payment");
         }
 
-        public IHttpActionResult GetStatus (int id)
+        public  IHttpActionResult GetStatus (int id)
         {
-            APILog.LogWrite(Request.RequestUri.ToString());
+           // APILog.LogWrite(Request.RequestUri.ToString());
             Order order;
             try
             {
@@ -109,10 +129,10 @@ namespace BankAPI.Controllers
             }
             catch(Exception e)
             {
-                APILog.LogWrite(e.Message);
+               // APILog.LogWrite(e.Message);
                 return Content(HttpStatusCode.NotFound, e.Message);
             }
-            APILog.LogWrite("Success");
+           // APILog.LogWrite("Success");
             return Ok(order.status);
         }
 

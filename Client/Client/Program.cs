@@ -4,9 +4,12 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using static Client.Program;
+
 
 namespace Client
 {
@@ -57,9 +60,9 @@ namespace Client
             }
         }
 
-        static void GetStatus(int id)
+        static async void GetStatus(int id)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://localhost:58453/api/order/GetStatus/" + id);
+            /*HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://localhost:58453/api/order/GetStatus/" + id);
             request.Method = "GET";
             request.Accept = "application/json";
             try
@@ -76,8 +79,19 @@ namespace Client
                 Console.WriteLine("A WebException has been caught.");
                 Console.WriteLine(webExcp.Message.ToString());
                 Console.WriteLine("Status Not Found");
+            }*/
+            using (var client = new HttpClient())
+            {
+                var http = new HttpClient();
+                var url = String.Format("http://localhost:58453/api/order/GetStatus/" + id);
+                var response = await http.GetAsync(url);
+                var result =  response.StatusCode;
+                Console.WriteLine(result+"   "+id);
             }
-            
+
+
+
+
         }
 
         static void Pay(int id, string card_number, string expiry_month, string expiry_year, string cvv, string cardholder_name)
@@ -112,11 +126,11 @@ namespace Client
             {
                 client.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
                 NameValueCollection myNameValueCollection = new NameValueCollection();
-                myNameValueCollection.Add("c_number", card_number);
-                myNameValueCollection.Add("exp_month", expiry_month);
-                myNameValueCollection.Add("exp_year", expiry_year);
+                myNameValueCollection.Add("card_number", card_number);
+                myNameValueCollection.Add("expiry_month", expiry_month);
+                myNameValueCollection.Add("expiry_year", expiry_year);
                 myNameValueCollection.Add("cvv", cvv);
-                myNameValueCollection.Add("cardholder", cardholder_name);
+                myNameValueCollection.Add("cardholder_name", cardholder_name);
                 try
                 {
                     var result = client.UploadValues("http://localhost:58453/api/order/PostPay/" + id, "POST", myNameValueCollection);
@@ -182,7 +196,7 @@ namespace Client
             {
                 new Card() { card_number = "2222",  expiry_month="12", expiry_year="2017", cvv="123", cardholder_name="wdfsfg" },
                 new Card() { card_number = "1234",  expiry_month="11", expiry_year="2018", cvv="567", cardholder_name="Andrey"},
-                new Card() { card_number = "9999",  expiry_month="11", expiry_year="2018", cvv="567", cardholder_name="Andrey"},
+                new Card() { card_number = "9999",  expiry_month="01", expiry_year="2018", cvv="532asd", cardholder_name="Andrey"},
             };
            /*  GetOrder(1);
             Console.Write("\n");
@@ -196,7 +210,7 @@ namespace Client
             Console.Write("\n");
              Pay(1, cards[0].card_number, cards[0].expiry_month, cards[0].expiry_year, cards[0].cvv, cards[0].cardholder_name);
              Pay(2, cards[1].card_number, cards[1].expiry_month, cards[1].expiry_year, cards[1].cvv, cards[1].cardholder_name);
-             Pay(3, cards[0].card_number, "23", cards[0].expiry_year, cards[0].cvv, cards[0].cardholder_name);
+             Pay(3, cards[0].card_number, cards[0].expiry_month, cards[0].expiry_year, cards[0].cvv, cards[0].cardholder_name);
              Pay(3, "7787", cards[2].expiry_month, cards[2].expiry_year, cards[2].cvv, cards[2].cardholder_name);
             //   GetLimit("2222");
             //Refund(1);
