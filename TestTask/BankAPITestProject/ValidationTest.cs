@@ -18,12 +18,15 @@ namespace BankAPITestProject
             card.expiry_year = "2017";
             card.cvv = "123";
             card.cardholder_name = "Andrey";
-
-    //        Validaion.TryCardValidate(card);
+            var context = new ValidationContext(card, serviceProvider: null, items: null);
+            var results = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(card, context, results, true);
+            Assert.IsTrue(isValid);
+            //        Validaion.TryCardValidate(card);
             //Assert
         }
 
-        [TestMethod, ExpectedException(typeof(CardValidationException))]
+        [TestMethod]
         public void IncorrectCardNumberValidate()
         {
             Card card = new Card();
@@ -32,12 +35,15 @@ namespace BankAPITestProject
             card.expiry_year = "2017";
             card.cvv = "123";
             card.cardholder_name = "Andrey";
-
-     //       Validaion.TryCardValidate(card);
+            var context = new ValidationContext(card, serviceProvider: null, items: null);
+            var results = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(card, context, results, true);
+            Assert.IsFalse(isValid);
+            //       Validaion.TryCardValidate(card);
             //Assert          
         }
 
-        [TestMethod, ExpectedException(typeof(CardValidationException))]
+        [TestMethod]
         public void IncorrectCardMonthFormat()
         {
             Card card = new Card();
@@ -46,12 +52,15 @@ namespace BankAPITestProject
             card.expiry_year = "2017";
             card.cvv = "123";
             card.cardholder_name = "Andrey";
-
-      //      Validaion.TryCardValidate(card);
+            var context = new ValidationContext(card, serviceProvider: null, items: null);
+            var results = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(card, context, results, true);
+            Assert.IsFalse(isValid);
+            //      Validaion.TryCardValidate(card);
             //Assert          
         }
 
-        [TestMethod, ExpectedException(typeof(CardValidationException))]
+        [TestMethod]
         public void IncorrectCardMonthValue()
         {
             Card card = new Card();
@@ -60,12 +69,15 @@ namespace BankAPITestProject
             card.expiry_year = "2017";
             card.cvv = "123";
             card.cardholder_name = "Andrey";
-
-       //     Validaion.TryCardValidate(card);
+            var context = new ValidationContext(card, serviceProvider: null, items: null);
+            var results = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(card, context, results, true);
+            Assert.IsFalse(isValid);
+            //     Validaion.TryCardValidate(card);
             //Assert          
         }
 
-        [TestMethod, ExpectedException(typeof(CardValidationException))]
+        [TestMethod]
         public void IncorrectCardYearFormat()
         {
             Card card = new Card();
@@ -74,22 +86,28 @@ namespace BankAPITestProject
             card.expiry_year = "2017r";
             card.cvv = "123";
             card.cardholder_name = "Andrey";
-
-         //   Validaion.TryCardValidate(card);
+            var context = new ValidationContext(card, serviceProvider: null, items: null);
+            var results = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(card, context, results, true);
+            Assert.IsFalse(isValid);
+            //   Validaion.TryCardValidate(card);
             //Assert          
         }
 
-        [TestMethod, ExpectedException(typeof(CardValidationException))]
+        [TestMethod]
         public void IncorrectCardYearValue()
         {
             Card card = new Card();
             card.card_number = "1111";
             card.expiry_month = "12";
-            card.expiry_year = "2015";
+            card.expiry_year = "1815";
             card.cvv = "123";
             card.cardholder_name = "Andrey";
-
-           // Validaion.TryCardValidate(card);
+            var context = new ValidationContext(card, serviceProvider: null, items: null);
+            var results = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(card, context, results, true);
+            Assert.IsFalse(isValid);
+            // Validaion.TryCardValidate(card);
             //Assert          
         }
 
@@ -99,39 +117,8 @@ namespace BankAPITestProject
             Card card = new Card {card_number = "1111",expiry_month = "12", expiry_year="2017", cvv = "12erhd34", cardholder_name = "Andrey" };
             var context = new ValidationContext(card, serviceProvider: null, items: null);
             var results = new List<ValidationResult>();
-
-            bool isValid = Validator.TryValidateObject(card, context, results);
-            /*card.card_number = "1111";
-            card.expiry_month = "12";
-            card.expiry_year = "2017";
-            card.cvv = "1234";
-            card.cardholder_name = "Andrey";*/
-
-            //Validaion.TryCardValidate(card);
+            bool isValid = Validator.TryValidateObject(card, context, results, true);
             Assert.IsFalse(isValid);          
         }
-
-        [TestMethod]
-        public void IncorrectTest()
-        {
-
-            Test user = new Test { User = "eafeger", Name = "Tetsgggggggggggggggg", Age = 10000 };
-            var context = new ValidationContext(user, serviceProvider: null, items: null);
-            var results = new List<ValidationResult>();
-
-            bool isValid = Validator.TryValidateObject(user, context, results, true);
-          
-            //  ModelState.IsValid
-            /*card.card_number = "1111";
-            card.expiry_month = "12";
-            card.expiry_year = "2017";
-            card.cvv = "1234";
-            card.cardholder_name = "Andrey";*/
-            Assert.IsFalse(isValid);
-            //Validaion.TryCardValidate(card);
-            //Assert          
-        }
-
-
     }
 }

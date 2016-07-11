@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BankAPI.Models.Repositiry
 {
-    interface IRepository : IDisposable
+    public interface IRepository : IDisposable
     {
         IEnumerable<Order> GetOrderList();
        // IEnumerable<Card> GetCardList();
@@ -17,6 +17,7 @@ namespace BankAPI.Models.Repositiry
         void UpdateCard(Card item);
         void Delete(int id);
         void Save();
+        void Transaction(Order o, Card c);
     }
 
     public class Repository: IRepository
@@ -52,7 +53,6 @@ namespace BankAPI.Models.Repositiry
             db.Entry(c).State = EntityState.Modified;
         }
 
-
         public void Delete(int id)
         {
             Order o = db.Orders.Find(id);
@@ -77,8 +77,6 @@ namespace BankAPI.Models.Repositiry
             get { return db.Cards; }
         }
 
-
-
         private bool disposed = false;
 
         public virtual void Dispose(bool disposing)
@@ -99,7 +97,6 @@ namespace BankAPI.Models.Repositiry
             GC.SuppressFinalize(this);
         }
 
-
         public void Transaction(Order o, Card c)
         {
             using (var transaction = db.Database.BeginTransaction())
@@ -118,6 +115,5 @@ namespace BankAPI.Models.Repositiry
                 }
             }
         }
-
     }
 }

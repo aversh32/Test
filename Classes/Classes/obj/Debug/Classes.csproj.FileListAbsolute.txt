@@ -1,0 +1,7 @@
+c:\users\user\documents\visual studio 2015\Projects\Classes\Classes\bin\Debug\Classes.dll
+c:\users\user\documents\visual studio 2015\Projects\Classes\Classes\bin\Debug\Classes.pdb
+c:\users\user\documents\visual studio 2015\Projects\Classes\Classes\obj\Debug\Classes.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\Classes\Classes\obj\Debug\Classes.dll
+c:\users\user\documents\visual studio 2015\Projects\Classes\Classes\obj\Debug\Classes.pdb
+c:\users\user\documents\visual studio 2015\Projects\Classes\Classes\bin\Debug\Newtonsoft.Json.dll
+c:\users\user\documents\visual studio 2015\Projects\Classes\Classes\bin\Debug\Newtonsoft.Json.xml

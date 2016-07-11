@@ -82,3 +82,6 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPITestProject\
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPITestProject\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPITestProject\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPITestProject\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPITestProject\bin\Debug\NLog.config
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPITestProject\bin\Debug\NLog.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPITestProject\bin\Debug\NLog.xml

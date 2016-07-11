@@ -9,45 +9,21 @@ using System.Web.Mvc;
 using System.Collections.Specialized;
 using System.Net.Http.Formatting;
 using System.Data.Entity;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+
 
 namespace BankAPI.Controllers
 {
     public class OrderController : ApiController
     {
- 
-       // OrderContext db = new OrderContext();
         BankOperations bankoper = new BankOperations();
         OrderOperations orderoper = new OrderOperations();
-        
-         /* public IEnumerable<Order> GetAllOrders()
-           {
-               return db.Orders;
-           }
 
-           public IEnumerable<Card> GetAllCards()
-           {
-               return db.Cards;
-           }
-
-           public IHttpActionResult GetOrder(int id)
-           {
-               var order = db.Orders.FirstOrDefault((p) => p.order_id == id);
-               if (order == null)
-               {
-                   return NotFound();
-               }
-               return Ok(order);
-           }
-   */
          [System.Web.Http.HttpPost]
         public IHttpActionResult PostPay(int id, [FromBody] Card card )
         {
-            APILog.LogWrite(Request.RequestUri.ToString());
-          /*  if(!ModelState.IsValid)
-            {
-                return Ok("Model Error");
-            }*/
-
+            Result result = new Result();
 
             try
             {
@@ -55,101 +31,81 @@ namespace BankAPI.Controllers
             }
             catch(CardValidationException e)
             {
-                APILog.LogWrite(e.Message);
-                return Content(HttpStatusCode.BadRequest, e.Message);
+                result.Code = "400";
+                result.Definition = e.Message;
+                APILog.WriteToLogFile(Request.RequestUri.ToString(), e.Message);
+                return Content(HttpStatusCode.BadRequest, result);
+            }
+            catch(OrderErrorException e)
+            {
+                result.Code = "400";
+                result.Definition = e.Message;
+                APILog.WriteToLogFile(Request.RequestUri.ToString(), e.Message);
+                return Content(HttpStatusCode.BadRequest, result);
             }
             catch(BankErrorException e)
             {
-                APILog.LogWrite(e.Message);
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                result.Code = "500";
+                result.Definition = e.Message;
+                APILog.WriteToLogFile(Request.RequestUri.ToString(), e.Message);
+                return Content(HttpStatusCode.BadRequest, result);
             }
             catch(Exception e)
             {
-                APILog.LogWrite(e.Message);
-                return Content(HttpStatusCode.NotFound, e.Message);
+                result.Code = "404";
+                result.Definition = e.Message;
+                APILog.WriteToLogFile(Request.RequestUri.ToString(), e.Message);
+                return Content(HttpStatusCode.BadRequest, result);
             }
- /*        Order order;
-           try
-            {
-                 order = orderoper.FindOrder(id);
-            }
-            catch(Exception e)
-            {
-                APILog.LogWrite(e.Message);
-                return Content(HttpStatusCode.NotFound, e.Message);
-            }
-            try
-            {
-                Validaion.TryValidate(card.card_number, card.expiry_month, card.expiry_year, card.cvv, card.cardholder_name);
-            }
-            catch(CardException e)
-            {
-                APILog.LogWrite(e.Message);
-                return Content( HttpStatusCode.BadRequest, e.Message);
-            }
-            try
-            {
-                bankoper.CheckCardExist(card.card_number, card.expiry_month, card.expiry_year, card.cvv, card.cardholder_name);
-            }
-            catch(Exception e)
-            {
-                APILog.LogWrite(e.Message);
-                //return Content(HttpStatusCode.NotFound, "Card not Found");
-                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message));
-            }
-            try
-            {
-                bankoper.CheckCardLimit(order.amount_kop, card.card_number);
-            }
-           catch(Exception e)
-            {
-                APILog.LogWrite(e.Message);
-                return Content(HttpStatusCode.Forbidden, e.Message);
-            }
-            try
-            {
-                bankoper.PayBank(card.card_number, order);
-            }
-            catch(Exception e)
-            {
-                APILog.LogWrite(e.Message);
-                return Content(HttpStatusCode.InternalServerError, e.Message);
-            }
-            APILog.LogWrite("Success");*/
-            return Ok("success Payment");
+
+            result.Code = "200";
+            result.Definition = "Success";
+            APILog.WriteToLogFile(Request.RequestUri.ToString(), "Success");
+            return Content(HttpStatusCode.OK, result);
         }
 
         public  IHttpActionResult GetStatus (int id)
         {
-           // APILog.LogWrite(Request.RequestUri.ToString());
             Order order;
+            Result result = new Result();
+                  
             try
             {
                 order = orderoper.FindOrder(id);
             }
             catch(Exception e)
             {
-               // APILog.LogWrite(e.Message);
-                return Content(HttpStatusCode.NotFound, e.Message);
+                result.Code = "404";
+                result.Definition = e.Message;
+                APILog.WriteToLogFile(Request.RequestUri.ToString(), e.Message);
+                return Content(HttpStatusCode.NotFound, result);
             }
-           // APILog.LogWrite("Success");
-            return Ok(order.status);
+
+            result.Code = "200";
+            result.Definition = "Success";
+            result.Data = order.status;
+            APILog.WriteToLogFile(Request.RequestUri.ToString(), "Success");
+            return Ok(result);
         }
 
         public IHttpActionResult GetRefund(int id)
         {
-            APILog.LogWrite(Request.RequestUri.ToString());
+            Result result = new Result();
             try
             {
                 bankoper.OrderRefund(id);
             }
             catch(Exception e)
             {
-                APILog.LogWrite(e.Message);
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                result.Code = "500: InternalServerError";
+                result.Definition = e.Message;
+                APILog.WriteToLogFile(Request.RequestUri.ToString(), e.Message);
+                return Content(HttpStatusCode.InternalServerError,result);
             }
-            APILog.LogWrite("Success");
-            return Ok("Success");
+            result.Code = "200: OK";
+            result.Definition = "Success";
+            APILog.WriteToLogFile(Request.RequestUri.ToString(), "Success");
+            return Ok(result);
         }
     }
 }

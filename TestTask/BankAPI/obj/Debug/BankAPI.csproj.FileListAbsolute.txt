@@ -175,3 +175,7 @@ C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\B
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.modval3.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.modval4.resources
 C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.modval5.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\obj\Debug\BankAPI.Migrations.TestDelete.resources
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\bin\NLog.config
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\bin\NLog.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\TestTask\BankAPI\bin\NLog.xml

@@ -8,26 +8,20 @@ using System.Web;
 
 namespace BankAPI.Models
 {
-     class BankOperations
+     public class BankOperations
     {
-       // OrderContext db = new OrderContext();
-        Repository repo = new Repository();
+        // OrderContext db = new OrderContext();
+        //Repository repo = new Repository();
+        Repository repo=new Repository();
+
         public  void PayBank(string number, Order order)
         {
             var card = repo.GetCard(number);
-            if (card.limit >= 0)
-            {
-                card.limit -= (double)order.amount_kop / 100;
-            }
+            card.limit -= (double)order.amount_kop / 100;
             order.card_number = card.card_number;
             order.status = "Success";
             try
             {
-                /*db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();*/
-                /*   repo.UpdateOrder(order);
-                   repo.UpdateCard(card);
-                   repo.Save();*/
                 repo.Transaction(order, card);
             }
             catch
@@ -36,7 +30,7 @@ namespace BankAPI.Models
             }
          }
         
-        private Card GetCardByNumber(string card_number)
+        public Card GetCardByNumber(string card_number)
         {
             try
             {
@@ -49,6 +43,7 @@ namespace BankAPI.Models
             }    
          
         }
+
         public void CheckCardExist(Card usercard)
         {
             var card = repo.GetCard(usercard.card_number);
@@ -56,7 +51,10 @@ namespace BankAPI.Models
             {
                 throw new Exception("Card not Found");
             }
-            else if (card.card_number == usercard.card_number && card.expiry_month == usercard.expiry_month && card.expiry_year == usercard.expiry_year && card.cvv == usercard.cvv && card.cardholder_name == usercard.cardholder_name)
+            else if (card.card_number == usercard.card_number 
+                    && card.expiry_month == usercard.expiry_month 
+                    && card.expiry_year == usercard.expiry_year 
+                    && card.cvv == usercard.cvv && card.cardholder_name.ToUpper() == usercard.cardholder_name.ToUpper())
                 return;
             throw new Exception("Wrong Card Data");
         }
@@ -76,28 +74,20 @@ namespace BankAPI.Models
                 return card.limit;
              throw new Exception ("Card Not Found") ;
         }
+
         public void OrderRefund(int id)
         {
             OrderOperations orderoper = new OrderOperations();
             Order order = orderoper.FindOrder(id);
             Card card;
-            try
-            {
-                card = GetCardByNumber(order.card_number);
-            }
-            catch(Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            //if (order.status != "Success")
+            //    throw new OrderErrorException("Order no success");
+            card = GetCardByNumber(order.card_number);
+
             try
             {
                 card.limit += (double)order.amount_kop / 100;
                 order.status = "Returned";
-                /*db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();*/
-                /* repo.UpdateOrder(order);
-                 repo.UpdateCard(card);
-                 repo.Save();*/
                 repo.Transaction(order, card);
             }
             catch
@@ -111,13 +101,12 @@ namespace BankAPI.Models
             OrderOperations orderoper = new OrderOperations();
             Order order;
             order = orderoper.FindOrder(id);
-            //      Validaion.TryCardValidate(card);
             Validaion.ModelValidate(card);
+           /* if (order.status != null)
+                throw new OrderErrorException("Order not waiting for payment");*/
             CheckCardExist(card);
             CheckCardLimit(order.amount_kop, card.card_number);
-            PayBank(card.card_number, order);
-            APILog.LogWrite("Success");
-            return;        
+            PayBank(card.card_number, order);       
         }    
     }
 
@@ -125,5 +114,10 @@ namespace BankAPI.Models
     {
         public BankErrorException() { }
         public BankErrorException(string message) : base(message) { }
+    }
+    public class OrderErrorException : Exception
+    {
+        public OrderErrorException() { }
+        public OrderErrorException(string message) : base(message) { }
     }
 }

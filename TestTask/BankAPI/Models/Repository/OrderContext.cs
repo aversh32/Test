@@ -17,6 +17,5 @@ namespace BankAPI.Models
         }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Card> Cards { get; set; }
-        public DbSet<Test> Tests { get; set; }
     }
 }
